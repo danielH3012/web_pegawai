@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aplikasi Kepegawaian</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <!-- Tambahkan jsPDF Library -->
+    <script src="{{ url_for('static', filename='js/jspdf.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jspdf.plugin.autotable.min.js') }}"></script>
+
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <a target="_blank" href="{{ url_for('static', filename='foto/headerhrd.png') }}" style="width: 100%;">
+        <img src="{{ url_for('static', filename='foto/headerhrd.png') }}" loading="lazy" alt="Header" style="width: 100%;">
+    </a>
+    <div class="container">
+        <h2 style="margin-left: -7%;">Data Kepegawaian</h2>
+        
+        <!-- Input untuk pencarian -->
+        <div class="mb-3">
+            <input type="text" id="searchInput" class="form-control" placeholder="Cari berdasarkan NIK atau Nama" style="margin-left: -7%;">
+        </div>
+        
+        <table class="table table-bordered table-hover" style="margin-left: -7%;">
+            <thead>
+                <tr>
+                    <th>NIK</th>
+                    <th>Foto</th>
+                    <th>Nama</th>
+                    <th>Alamat</th>
+                    <th>Tgl.Lahir</th>
+                    <th>Jenis.K</th>
+                    <th>Status</th>
+                    <th>Jatah Cuti</th>
+                    <th>Cuti</th>
+                    <th>Gaji</th>
+                    <th width="15%">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in container %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>
+                        <img src="{{ url_for('static', filename='foto/' + row[0] + '.jpg') }}" alt="Foto {{ row[1] }}" width="70">
+                    </td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3].strftime('%d/%m/%Y') }}</td>
+                    <td>{{ row[4] }}</td>
+                    <td>{{ row[5] }}</td>
+                    <td>{{ row[8] }}</td>
+                    <td>{{ row[9] }}</td>
+                    <td style="text-align: right;">{{ "{:,.2f}".format(row[6]) }}</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <a href="#" class="btn btn-secondary print-btn" data-nik="{{ row[0] }}">Print</a>
+                            <a href="http://localhost:5000/edit/{{row[0]}}" class="btn btn-warning" role="button">Ubah</a>
+                            <a href="http://localhost:5000/hapus/{{row[0]}}" class="btn btn-danger" role="button" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</a>
+                            <a href="http://localhost:5000/cuti/{{row[0]}}" class="btn btn" role="button" style="background-color: seagreen; color: white;">Cuti</a>
+                            <a href="http://localhost:5000/prifat/{{row[0]}}" class="btn btn" role="button" style="background-color: slateblue; color: white">Private Chat</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <!-- Pagination -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" id="previous"><a class="page-link" href="#">Sebelumnya</a></li>
+                <li class="page-item" id="page1"><button class="page-link btn btn-link">1</button></li>
+                <li class="page-item" id="page2"><button class="page-link btn btn-link">2</button></li>
+                <li class="page-item" id="page3"><button class="page-link btn btn-link">3</button></li>
+                <li class="page-item" id="next"><a class="page-link" href="#">Selanjutnya</a></li>
+            </ul>
+        </nav>
+        
+        <a href="http://localhost:5000/tambah" class="btn btn-primary" role="button" style="margin-left: -7%;">Tambah Data</a>
+        <a href="http://localhost:5000/pengumuman(admin) " class="btn btn-warning" role="button">Pengumuman</a>
+        <a href="http://localhost:5000/hrd" class="btn btn-danger" role="button"> Log Out </a>
+    </div>
+    
+    <!-- JavaScript untuk Bootstrap -->
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+    
+    <script>
+        var currentPage = 1;
+        var itemsPerPage = 4;
+        var totalRows = document.querySelectorAll('tbody tr').length;
+
+        function displayData(page) {
+            var startIndex = (page - 1) * itemsPerPage;
+            var endIndex = startIndex + itemsPerPage;
+
+            var rows = document.querySelectorAll('tbody tr');
+            for (var i = 0; i < rows.length; i++) {
+                if (i >= startIndex && i < endIndex) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+
+        function updatePaginationButtons() {
+            var totalPages = Math.ceil(totalRows / itemsPerPage);
+            var page1 = document.getElementById('page1');
+            var page2 = document.getElementById('page2');
+            var page3 = document.getElementById('page3');
+
+            if (currentPage <= 3) {
+                page1.innerHTML = '<button class="page-link btn btn-link">1</button>';
+                page2.innerHTML = '<button class="page-link btn btn-link">2</button>';
+                page3.innerHTML = '<button class="page-link btn btn-link">3</button>';
+            } else {
+                page1.innerHTML = '<button class="page-link btn btn-link">' + (currentPage - 1) + '</button>';
+                page2.innerHTML = '<button class="page-link btn btn-link">' + currentPage + '</button>';
+                page3.innerHTML = '<button class="page-link btn btn-link">' + (currentPage + 1) + '</button>';
+            }
+        }
+
+        displayData(currentPage);
+        updatePaginationButtons();
+
+        document.getElementById('previous').addEventListener('click', function() {
+            if (currentPage > 1) {
+                currentPage--;
+                displayData(currentPage);
+                updatePaginationButtons();
+            }
+        });
+
+        document.getElementById('next').addEventListener('click', function() {
+            if (currentPage < Math.ceil(totalRows / itemsPerPage)) {
+                currentPage++;
+                displayData(currentPage);
+                updatePaginationButtons();
+            }
+        });
+
+        document.getElementById('page1').addEventListener('click', function() {
+            currentPage = parseInt(this.textContent);
+            displayData(currentPage);
+            updatePaginationButtons();
+        });
+
+        document.getElementById('page2').addEventListener('click', function() {
+            currentPage = parseInt(this.textContent);
+            displayData(currentPage);
+            updatePaginationButtons();
+        });
+
+        document.getElementById('page3').addEventListener('click', function() {
+            currentPage = parseInt(this.textContent);
+            displayData(currentPage);
+            updatePaginationButtons();
+        });
+
+        // Fungsi pencarian
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            var searchText = this.value.toLowerCase();
+            var rows = document.querySelectorAll('tbody tr');
+            for (var i = 0; i < rows.length; i++) {
+                var rowText = rows[i].textContent.toLowerCase();
+                if (rowText.includes(searchText)) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+            currentPage = 1; // Reset ke halaman pertama setelah pencarian
+            updatePaginationButtons();
+        });
+
+        //fungsi untuk print ke pdf
+        function printToPDF(nik) {
+            // Mengambil data pegawai dari server berdasarkan NIK
+            fetch(`/get_employee_data/${nik}`)
+            .then(response => response.json())
+            .then(data => {
+                var doc = new jsPDF();
+                doc.text(20, 20, 'Data Kepegawaian');
+                
+                // Menambahkan data ke PDF berdasarkan data pegawai yang diperoleh
+                doc.text(20, 40, `NIK: ${data.nik}`);
+                doc.text(20, 50, `Nama: ${data.nama}`);
+                doc.text(20, 60, `Alamat: ${data.alamat}`);
+                doc.text(20, 70, `Tgl.Lahir: ${data.tgllahir}`);
+                doc.text(20, 80, `Jenis Kelamin: ${data.jeniskelamin}`);
+                doc.text(20, 90, `Status: ${data.status}`);
+                doc.text(20, 100, `Gaji: ${data.gaji}`);
+                        
+                // Generate pratinjau PDF sebelum menyimpan
+                var pdfOutput = doc.output('datauristring');
+                
+                // Tampilkan pratinjau PDF dalam jendela baru
+                var iframe = "<iframe width='100%' height='100%' src='" + pdfOutput + "'></iframe>";
+                var x = window.open();
+                x.document.open();
+                x.document.write(iframe);
+                x.document.close();
+                
+                // Simpan PDF
+                doc.save('DetailKepegawaian.pdf');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        // Event Listener untuk tombol Print
+        var printButtons = document.querySelectorAll('.print-btn');
+        printButtons.forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                var nik = this.getAttribute('data-nik'); // Ambil NIK dari atribut data-nik tombol
+                printToPDF(nik);
+            });
+        });        
+    </script>
+     
+<br></br>    
+</body>
+</html>

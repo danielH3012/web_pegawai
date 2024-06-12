@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aplikasi Kepegawian</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <style>
+        .a{
+            font: 30px Helvetica, sans-serif;
+            margin-left: 1%;
+        }
+        .b{
+            font: 20px Helvetica, sans-serif;
+        }
+        .c{
+            font-family: "Times New Roman", Times, serif;
+        }
+        .d{
+            font: 20px Helvetica, sans-serif;
+        }
+        img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+        }
+        .format{
+            margin-left: 40%;
+            border: solid;
+            margin-right: 40%;
+            
+        }
+        .masukan{
+            padding-right: 0%;
+            margin-right: 0%;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="{{ url_for('cuti', nik=data[0]) }}" method = "POST">
+        <a target="_blank" href="{{ url_for('static', filename='foto/headerhrd.png') }}" style="width: 100%;">
+            <img src="{{ url_for('static', filename='foto/headerhrd.png') }}" loading="lazy" alt="Header" style="width: 100%;">
+        </a>
+        <br>
+        <label class="a">Cuti Pegawai</label>
+        <br></br>
+        <label for="tgl1" class="d" style="margin-left: 1%">Jatah Cuti Tersedia: </label>
+        <input type="number" name="jatah" value="{{data[8]}}" style="width: 10%; margin-left: 1%;" class="form-control" readonly/>
+        <br></br>
+        <br></br>
+        <label class="b" style="margin-left: 1%">Form Mengajukan Cuti</label>
+        <br></br>
+        <label for="tgl1" style="margin-left: 1%">Tanggal Mulai Cuti: </label>
+        <input type="number" id="tgl1" name = "tgl1" style="margin-left: 7%;">
+        <br></br>
+        <label for="bulan1" style="margin-left: 1%">Bulan Mulai: </label>
+        <input type="number" id="bulan1" name = "bulan1" style="margin-left: 10.25%;">
+        <br></br>
+        <label for="tahun1" style="margin-left: 1%">Tahun Selesai: </label>
+        <input type="number" id="tahun1" name = "tahun1" style="margin-left: 9.5%;">
+        <br></br>
+        <label for="2" style="margin-left: 1%">Tanggal Selesai: </label>
+        <input type="number" id="tgl2" name = "tgl2" style="margin-left: 8.75%;">
+        <br></br>
+        <label for="bulan2" style="margin-left: 1%">Bulan Selesai: </label>
+        <input type="number" id="bulan2" name = "bulan2" style="margin-left: 9.65%;">
+        <br></br>
+        <label for="tahun2" style="margin-left: 1%">Tahun Selesai: </label>
+        <input type="number" id="tahun2" name = "tahun2" style="margin-left: 9.55%;">
+        <br></br>
+      <input type ="submit" style="margin-left: 1%">
+      <br></br>
+      <br></br>
+    </form>
+</body>
+</html>

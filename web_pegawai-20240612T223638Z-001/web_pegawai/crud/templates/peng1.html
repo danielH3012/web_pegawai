@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aplikasi Kepegawian</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <style>
+        .a{
+            font: 30px Helvetica, sans-serif;
+            margin-left: 1%;
+        }
+        .b{
+            font: 20px Helvetica, sans-serif;
+            margin-left: 1%;
+        }
+    </style>
+</head>
+
+<body>
+    <a target="_blank" href="{{ url_for('static', filename='foto/headerhrd.png') }}" style="width: 100%;">
+        <img src="{{ url_for('static', filename='foto/headerhrd.png') }}" loading="lazy" alt="Header" style="width: 100%;">
+    </a>
+    <form action="http://localhost:5000/pengumuman(admin)" method = "POST">
+        <label class="a">Pengumuman</label>
+        <a href="http://localhost:5000/hrd" class="btn btn-danger" role="button" style="margin-left: 80%;"> Log Out </a>
+        <br></br>
+        <label for="judul" class="b">Judul Pengumuman: </label>
+        <input type="text" id="judul" name = "judul">
+        <br></br>
+        <label for="isi" class="b">Isi Pengumuman: </label>
+        <input type="text" id="isi" name = "isi">
+        <br></br>
+        
+      <input type ="submit" style="margin-left: 1%;">
+    </form>
+
+    {%for row in data%}
+    <br></br>
+    <h3 style="margin-left: 1%;">{{ row[0] }}</h3> <a href="http://localhost:5000//berita/{{row[0]}}" class="btn btn-warning" role="button" style="margin-left: 1%;"> Lihat Pengumuman </a>
+    <a href="http://localhost:5000/hapus_ber/{{row[0]}}" class="btn btn-warning" role="button" style="margin-left: 1%;"> Hapus Pengumuman</a>
+    {%endfor%}
+    <br></br>
+</body>
+</html>

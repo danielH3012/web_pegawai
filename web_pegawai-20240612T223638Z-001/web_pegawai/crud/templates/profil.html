@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aplikasi Kepegawian</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+</head>
+    
+<body>
+        <a>{{ row[0] }}</a>
+        <a>
+            <img src="{{ url_for('static', filename='foto/' + row[0] + '.jpg') }}" alt="Foto {{ row[1] }}" width="70">
+        </a>
+        <a>{{ row[1] }}</a>
+        <a>{{ row[2] }}</a>
+        <a>{{ row[3].strftime('%d/%m/%Y') }}</a>
+        <a>{{ row[4] }}</a>
+        <a>{{ row[5] }}</a>
+        <a>{{ row[8] }}</a>
+        <a>{{ row[9] }}</a>
+</body>
+</html>

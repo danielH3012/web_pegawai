@@ -1,0 +1,104 @@
+<html>
+<head>
+    <title>Aplikasi Kepegawian</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+</head>
+<body>
+    <a target="_blank" href="{{ url_for('static', filename='foto/headerhrd.png') }}" style="width: 100%;">
+        <img src="{{ url_for('static', filename='foto/headerhrd.png') }}" loading="lazy" alt="Header" style="width: 100%;">
+    </a><br>
+    <a href="http://localhost:5000/hrd" class="btn btn-danger" role="button" style="margin-left: 90%;"> Log Out </a>
+    <div class="container">
+        <div class="col-sm-12">
+            <h2>Edit Data Pegawai</h2>
+            <form action="{{ url_for('edit', nik=data[0]) }}" method="post" enctype="multipart/form-data">
+
+                <div class="row">                                                                            
+                    <!-- Kolom untuk nama pegawai -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>NIK Pegawai:</label> 
+                            <input type="txt" name="nik" value="{{data[0]}}" class="form-control" readonly/>
+
+                        </div>
+                        
+
+                        <div class="form-group">
+                            <label>Nama Pegawai:</label>
+                            <input type="text" name="nama" value="{{data[1]}}" class="form-control" placeholder="Masukan nama pegawai" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Alamat Pegawai:</label>
+                            <input type="text" name="alamat" value="{{data[2]}}" class="form-control" placeholder="Masukan alamat pegawai" required />
+                        </div>
+        
+                        <div class="form-group">
+                            <label>Tanggal Lahir:</label>
+                            <input type="text" id="tgllahir" name="tgllahir" value="{{data[3]}}" class="form-control" placeholder="Masukan tanggal lahir (yyyy-MM-dd)" required />
+                            <small class="form-text text-muted">Format: yyyy-MM-dd (contoh: 2024-12-31)</small>
+                        </div>
+        
+                        <script>
+                            document.querySelector('form').addEventListener('submit', function(e) {
+                                const dateInput = document.getElementById('tgllahir');
+                                const dateValue = dateInput.value;
+                                const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+                                
+                                if (!datePattern.test(dateValue)) {
+                                    alert('Format tanggal salah! Harap gunakan format yyyy-MM-dd.');
+                                    e.preventDefault();
+                                }
+                            });
+                        </script>
+        
+                        <div class="form-group">
+                            <label>Jenis Kelamin:</label><br>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="jeniskelamin" id="Pria" value="Pria" {% if data[4] == "Pria" %}checked{% endif %}>
+                                <label class="form-check-label" for="pria">Pria</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="jeniskelamin" id="perempuan" value="Perempuan" {% if data[4] == "Perempuan" %}checked{% endif %}>
+                                <label class="form-check-label" for="perempuan">Perempuan</label>
+                            </div>
+                        </div>
+        
+                        <div class="form-group">
+                            <label>Status Perkawinan:</label>
+                            <select name="status" class="form-control" required>
+                                <option value="Belum" {% if data[5] == "Belum" %}selected{% endif %}>Belum</option>
+                                <option value="Menikah" {% if data[5] == "Menikah" %}selected{% endif %}>Menikah</option>
+                                <option value="Pisah" {% if data[5] == "Pisah" %}selected{% endif %}>Pisah</option>
+                            </select>
+                        </div>
+        
+                        <div class="form-group">
+                            <label>Gaji:</label>
+                            <input type="number" name="gaji" value="{{data[6]}}" class="form-control" placeholder="Masukan gaji" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for = "foto" class="form-label">Upload Foto</label>
+                            <br>
+                            <input lass="form-control" type="file" src="{{ url_for('static', filename='foto/' + data[0] + '.jpg') }}" id="foto" name="foto">
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" id="Submit" name="submit" class="btn btn-primary">Edit Pegawai</button>
+                <a href="{{ url_for('index') }}" class="btn btn-secondary">Batal</a>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- JavaScript untuk preview foto -->
+    <script>
+        function previewImage(event) {
+            const img = document.getElementById('preview');
+            img.src = URL.createObjectURL(event.target.files[0]);
+        }
+    </script>
+</body>
+</html>

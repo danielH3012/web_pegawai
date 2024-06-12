@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aplikasi Kepegawaian</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <style>
+        .a{
+            font: 25px helvetica;
+            margin-left: 2%;
+        }
+        .b{
+            font: 13px helvetica;
+            margin-left: 2%;
+        }
+    </style>
+</head>
+
+<body>
+    <p class="a">Ganti Password</p>
+    <form action="http://localhost:5000/pw/{{nik}}" method = "POST">
+        <label for="pw" class="b">Password Baru: </label>
+        <input type="text" id="pw" name = "pw" style="margin-left: 0.9%;">
+        <br></br>
+      <input type ="submit" class="b">
+    </form>
+</body>
+</html>

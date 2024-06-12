@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aplikasi Kepegawaian</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <script>
+        window.onload = async function () {
+            // Anda bisa menambahkan kode lain yang diperlukan di sini
+        }
+
+    </script>
+    <style>
+        /* Menambahkan CSS untuk mengatur layout */
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-group {
+            width: 48%; /* Memberi lebar agar ada ruang di antara dua elemen */
+        }
+
+        /* Menyesuaikan untuk layar yang lebih kecil */
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+            }
+
+            .form-group {
+                width: 100%; /* Mengambil seluruh lebar saat di layar kecil */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Tambah Data</h2>
+        <form action="{{ url_for('tambah') }}" method="post" enctype="multipart/form-data">
+            <!-- Bagian NIK dan Tanggal Lahir -->
+            <div class="form-row">
+                <!-- NIK -->
+                <div class="form-group">
+                    <label>NIK:</label>
+                    <input type="text" id="nik" name="nik" class="form-control" placeholder="Auto-generate NIK" value="{{ nik }}" readonly>
+                </div>
+                <!-- Tanggal Lahir -->
+                <div class="form-group">
+                    <label>Tanggal lahir:</label>
+                    <input type="date" name="tgllahir" class="form-control" required>
+                </div>
+            </div>
+            
+            <!-- Bagian Nama Pegawai dan Jenis Kelamin -->
+            <div class="form-row">
+                <!-- Nama Pegawai -->
+                <div class="form-group">
+                    <label>Nama Pegawai:</label>
+                    <input type="text" name="nama" class="form-control" placeholder="Masukan nama" required>
+                </div>
+                <!-- Jenis Kelamin -->
+                <div class="form-group">
+                    <label>Jenis Kelamin:</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="jeniskelamin" id="pria" value="Pria" required>
+                        <label class="form-check-label" for="pria">Pria</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="jeniskelamin" id="perempuan" value="Perempuan">
+                        <label class="form-check-label" for="perempuan">Perempuan</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bagian Alamat dan Status -->
+            <div class="form-row">
+                <!-- Alamat -->
+                <div class="form-group">
+                    <label>Alamat:</label>
+                    <textarea name="alamat" class="form-control" rows="4" placeholder="Masukan alamat pegawai" required></textarea>
+                </div>                
+                <!-- Status dan Gaji -->
+                <div class="form-group">
+                    <label>Status:</label>
+                    <select name="status" class="form-control" required>
+                        <option value="Belum">Belum</option>
+                        <option value="Menikah">Menikah</option>
+                        <option value="Pisah">Pisah</option>
+                    </select>
+                    <label>Gaji:</label>
+                    <input type="number" name="gaji" class="form-control" placeholder="Masukan gaji" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for = "foto" class="form-label">foto</label>
+                <input lass="form-control" type="file" id="foto" name="foto" required>
+            </div>
+
+            <!-- Bagian Tombol Simpan dan Batal -->
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Simpan</button>
+                <a href="{{ url_for('index') }}" class="btn btn-secondary">Batal</a>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

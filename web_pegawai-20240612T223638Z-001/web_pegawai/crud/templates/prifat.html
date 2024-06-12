@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aplikasi Kepegawian</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <style>
+        .a{
+            font: 30px Helvetica, sans-serif;
+            margin-left: 1%;
+        }
+        .b{
+            font: 20px Helvetica, sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+<a target="_blank" href="{{ url_for('static', filename='foto/header.png') }}" style="width: 100%;">
+    <img src="{{ url_for('static', filename='foto/header.png') }}" loading="lazy" alt="Header" style="width: 100%;">
+</a>
+<br></br>
+<label class="a">{{ nik }}</label>
+<a href="http://localhost:5000/hrd" class="btn btn-danger" role="button" style="margin-left: 80%;"> Log Out </a>
+    {%for row in data%}
+    <p style="margin-left: 1%;">{{row[0]}}</p>
+    <a href="http://localhost:5000/hapus_ber/{{row[0]}}" class="btn btn-warning" role="button" style="margin-left: 1%;">Hapus</a>
+    <br><br>
+    {%endfor%}
+
+    <form action="{{ url_for('prifat', nik=nik) }}" method = "POST" style="margin-left: 1%;">
+        <label for="isi" class="b">Chat disini: </label>
+        <br></br>
+        <input type="text" id="isi" name = "isi">
+      <input type ="submit">
+    </form>
+    <br></br>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aplikasi Kepegawian</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+</head>
+    
+<body>
+    {%for row in data%}
+        <a href="http://localhost:5000/berita/{{row[0]}}" class="btn btn-warning" role="button"><h1>{{ row[0] }}</h1></a>
+    {%endfor%}
+</body>
+</html>

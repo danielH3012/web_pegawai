@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aplikasi Kepegawaian - Pegawai</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <style>
+        .a{
+            font: 30px Helvetica, sans-serif;
+            margin-left: 1%;
+        }
+        .b{
+            font: 20px Helvetica, sans-serif;
+            margin-left: 1%;
+        }
+    </style>
+</head>
+
+<body>
+    <a target="_blank" href="{{ url_for('static', filename='foto/header.png') }}" style="width: 100%;">
+        <img src="{{ url_for('static', filename='foto/header.png') }}" loading="lazy" alt="Header" style="width: 100%;">
+    </a>
+    <br>
+    <label class="a">Data Pegawai</label>
+    <a href="http://localhost:5000/pegawai" class="btn btn-danger" role="button" style="margin-left: 90%;"> Log Out </a>
+    <img src="{{ url_for('static', filename='foto/' + data[0] + '.jpg') }}" alt="Foto {{ data[1] }}" width="150"style="margin-left: 1%;">
+    <br></br>
+    <p style="margin-left: 1%" class="b">Nama Pegawai: {{ data[1] }} </p>
+    <p style="margin-left: 1%" class="b">Tanggal Lahir: {{ data[3] }} </p>
+    <p style="margin-left: 1%" class="b">Jatah Cuti: {{ data[8] }} </p>
+    <p style="margin-left: 1%" class="b">Status Cuti: {{ data[9] }} </p>
+    <a href="http://localhost:5000/pengumuman" class="btn btn-warning" role="button" style="margin-left: 1%; background-color: lightskyblue" >Pengumuman</a>
+    <a href="http://localhost:5000/profil/{{data[0]}}" class="btn btn-warning" role="button" style="background-color: greenyellow;">Profil</a>
+    <a href="http://localhost:5000/pw/{{data[0]}}" class="btn btn-warning" role="button" style="background-color: yellow;">Ganti Password</a>
+    <a href="http://localhost:5000/japri/{{data[0]}}" class="btn btn-warning" role="button" style="background-color: red;">Private Chat</a>
+    <br></br>
+</body>
+</html>

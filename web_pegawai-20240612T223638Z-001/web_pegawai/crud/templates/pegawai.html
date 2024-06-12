@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aplikasi Kepegawaian - Pegawai</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            text-align: center;
+        }
+        .fit-screen {
+        width: 100%;
+        }
+        img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+        }
+        .format{
+            margin-left: 40%;
+            border: solid;
+            margin-right: 40%;
+            
+        }
+        .masukan{
+            padding-right: 0%;
+            margin-right: 0%;
+        }
+    </style>
+</head>
+
+<body>
+    <a target="_blank" href="{{ url_for('static', filename='foto/header.png') }}" style="width: 100%;">
+        <img src="{{ url_for('static', filename='foto/header.png') }}" loading="lazy" alt="Header" style="width: 100%;">
+    </a>
+    <br></br>
+    <div class="format">
+        <form action="/pegawai" method = "POST">
+            <br></br>
+            <div class="masukan">
+                <label for="nama" style="margin-left: 10%">Username</label>: </label>
+                <input type="text" id="nama" name = "nama" style="margin-left: 0%; margin-bottom: 7.5%;">
+            </div>
+            <div class="masukan">
+                <label for="password" style="margin-left: 10%;">Password: </label>
+                <input type="password" id="pw" name = "pw" style="margin-left: 1.25%">
+                <br></br>
+            </div>
+          <input type ="submit" style="margin-left: 40%;">
+          <br></br>
+        </form>
+    </div>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aplikasi Kepegawian</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <style>
+        .format{
+            margin-left: 40%;
+            border: solid;
+            margin-right: 40%;
+            ;
+        }
+    </style>
+</head>
+
+<body>
+    <a target="_blank" href="{{ url_for('static', filename='foto/header.png') }}" style="width: 100%;">
+        <img src="{{ url_for('static', filename='foto/header.png') }}" loading="lazy" alt="Header" style="width: 100%;">
+    </a>
+    <div class="format">
+        <br>
+        <a href="http://localhost:5000/hrd" class="btn btn-warning" role="button" style="background-color: blue; color: white; margin-left: 31%">Aplikasi HRD</a>
+        <br></br>
+        <a href="http://localhost:5000/pegawai" class="btn btn-warning" role="button" style="background-color: yellow; color: black;margin-left: 26.5%">Aplikasi Pegawai</a> 
+        <br></br>
+    </div>
+    
+</body>
+</html>
